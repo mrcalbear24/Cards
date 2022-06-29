@@ -14,7 +14,7 @@ final class CardValueWithSuitView: UIView {
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.alignment = .leading
     stackView.axis = .vertical
-    stackView.spacing = 4
+    stackView.spacing = 0
     stackView.distribution = .fillEqually
     return stackView
   }()
@@ -25,7 +25,7 @@ final class CardValueWithSuitView: UIView {
     label.text = "A"
     label.textAlignment = .center
     label.textColor = .red
-    label.contentMode = .scaleAspectFit
+    label.contentMode = .center
     label.font = UIFont.boldSystemFont(ofSize: 75)
     label.minimumScaleFactor = 0.1
    // label.setContentHuggingPriority(.defaultLow, for: .vertical)
@@ -42,7 +42,6 @@ final class CardValueWithSuitView: UIView {
     let image = UIImage(systemName: "suit.heart.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal)
     imageView.image = image
     imageView.contentMode = .scaleAspectFit
-   // imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
     return imageView
   }()
   
@@ -84,5 +83,17 @@ final class CardValueWithSuitView: UIView {
       // Value
       valueLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor)
     ])
+  }
+  
+  public func apply(card: Card) {
+    let color = card.suit.color
+    let suitName = card.suit.rawValue
+    
+    // VALUE
+    valueLabel.text = card.value.rawValue
+    valueLabel.textColor = color
+    
+    // SUIT
+    suitImageView.image = UIImage(systemName: suitName)?.withTintColor(color, renderingMode: .alwaysOriginal)
   }
 }
